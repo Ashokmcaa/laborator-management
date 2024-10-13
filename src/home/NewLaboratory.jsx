@@ -76,7 +76,7 @@ export default function NewLaboratory({
       laboratoryName: labData?.name || "",
       city: labData?.city || "",
       cluster: labData?.cluster || "",
-      availableEquipment: labData?.availableEquipment.join(", ") || "",
+      availableEquipment: labData?.availableEquipment || "",
       viscosity: Number(labData?.fuelOilParameters?.viscosity) || "", // Convert to number
       sulfurContent:
         parseFloat(labData?.fuelOilParameters?.sulfurContent) || "", // Convert to float
