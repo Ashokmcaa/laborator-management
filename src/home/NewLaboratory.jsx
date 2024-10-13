@@ -38,31 +38,32 @@ export default function NewLaboratory({
     state.labs.labs.find((lab) => parseInt(lab.id) === parseInt(labId.id))
   );
 
-  // useEffect(() => {
-  //   const labDetails = labData.find(
-  //     (lab) => parseInt(lab.id) === parseInt(labId.id)
-  //   );
-  //   console.log(labDetails);
-
-  //   formik.setFieldValue("laboratoryName", labDetails.name);
-  //   formik.setFieldValue("city", labDetails.city);
-  //   formik.setFieldValue("cluster", labDetails.cluster);
-  //   formik.setFieldValue("availableEquipment", labDetails.availableEquipment);
-  //   formik.setFieldValue("viscosity", labDetails.fuelOilParameters.viscosity);
-  //   formik.setFieldValue(
-  //     "sulfurContent",
-  //     parseFloat(labDetails.fuelOilParameters.sulfurContent)
-  //   );
-  //   formik.setFieldValue(
-  //     "waterContent",
-  //     parseFloat(labDetails.fuelOilParameters.waterContent)
-  //   );
-  //   formik.setFieldValue(
-  //     "flashPoint",
-  //     parseFloat(labDetails.fuelOilParameters.flashPoint)
-  //   );
-  //   formik.setFieldValue("status", labDetails.status);
-  // }, []);
+  useEffect(() => {
+    // const labData = labData.find(
+    //   (lab) => parseInt(lab.id) === parseInt(labId.id)
+    // );
+    // console.log(labData);
+    if (parseInt(labId.id) !== 0) {
+      formik.setFieldValue("laboratoryName", labData?.name);
+      formik.setFieldValue("city", labData?.city);
+      formik.setFieldValue("cluster", labData?.cluster);
+      formik.setFieldValue("availableEquipment", labData?.availableEquipment);
+      formik.setFieldValue("viscosity", labData?.fuelOilParameters?.viscosity);
+      formik.setFieldValue(
+        "sulfurContent",
+        parseFloat(labData?.fuelOilParameters?.sulfurContent)
+      );
+      formik.setFieldValue(
+        "waterContent",
+        parseFloat(labData?.fuelOilParameters?.waterContent)
+      );
+      formik.setFieldValue(
+        "flashPoint",
+        parseFloat(labData?.fuelOilParameters?.flashPoint)
+      );
+      formik.setFieldValue("status", labData?.status);
+    }
+  }, []);
 
   console.log(
     "Lab Data:",
@@ -73,16 +74,15 @@ export default function NewLaboratory({
 
   const formik = useFormik({
     initialValues: {
-      laboratoryName: labData?.name || "",
-      city: labData?.city || "",
-      cluster: labData?.cluster || "",
-      availableEquipment: labData?.availableEquipment || "",
-      viscosity: Number(labData?.fuelOilParameters?.viscosity) || "", // Convert to number
-      sulfurContent:
-        parseFloat(labData?.fuelOilParameters?.sulfurContent) || "", // Convert to float
-      waterContent: parseFloat(labData?.fuelOilParameters?.waterContent) || "", // Convert to float
-      flashPoint: parseFloat(labData?.fuelOilParameters?.flashPoint) || "", // Convert to float
-      status: labData?.status || "Live",
+      laboratoryName: "", // If labData.name is missing or undefined
+      city: "", // If labData.city is missing
+      cluster: "", // If labData.cluster is missing
+      availableEquipment: "", // If labData.availableEquipment is missing
+      viscosity: "", // If labData.fuelOilParameters.viscosity is missing or invalid
+      sulfurContent: "", // If labData.fuelOilParameters.sulfurContent is missing or invalid
+      waterContent: "", // If labData.fuelOilParameters.waterContent is missing or invalid
+      flashPoint: "", // If labData.fuelOilParameters.flashPoint is missing or invalid
+      status: null,
     },
     enableReinitialize: true,
     validateOnChange: false,
@@ -112,7 +112,7 @@ export default function NewLaboratory({
       ),
     }),
     onSubmit: (values) => {
-      if (parseInt(labId.id) !== 0) {
+      if (parseInt(labId.id) === 0) {
         const newLab = {
           id: Math.random(), // For simplicity, using random ID
           name: values.laboratoryName,
