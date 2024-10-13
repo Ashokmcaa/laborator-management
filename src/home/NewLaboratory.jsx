@@ -133,7 +133,7 @@ export default function NewLaboratory({
         handleClose();
       } else {
         const updatedData = {
-          id: labId,
+          id: labId.id,
           name: values.laboratoryName,
           city: values.city,
           cluster: values.cluster,
@@ -148,6 +148,7 @@ export default function NewLaboratory({
           },
           status: values.status,
         };
+        console.log(editLab(updatedData));
 
         dispatch(editLab(updatedData));
         handleClose();
