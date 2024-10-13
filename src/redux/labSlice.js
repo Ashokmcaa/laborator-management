@@ -156,7 +156,6 @@ export const addLab = createAsyncThunk("labs/addLab", async (newLab) => {
 
 export const editLab = createAsyncThunk("labs/editLab", async (updatedLab) => {
   const labs = getStoredLabs();
-  console.log(labs, "labslabslabs");
 
   const index = labs.findIndex(
     (lab) => parseInt(lab.id) === parseInt(updatedLab.id)

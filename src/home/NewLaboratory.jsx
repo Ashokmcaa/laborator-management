@@ -65,13 +65,6 @@ export default function NewLaboratory({
     }
   }, []);
 
-  console.log(
-    "Lab Data:",
-    labData,
-    labId,
-    useSelector((state) => state.labs.labs)
-  );
-
   const formik = useFormik({
     initialValues: {
       laboratoryName: "", // If labData.name is missing or undefined
@@ -148,7 +141,6 @@ export default function NewLaboratory({
           },
           status: values.status,
         };
-        console.log(editLab(updatedData));
 
         dispatch(editLab(updatedData));
         handleClose();
